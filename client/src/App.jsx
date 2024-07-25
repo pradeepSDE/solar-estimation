@@ -8,7 +8,7 @@ import CaptureImg from './components/CaptureImg'
 import axios from 'axios'
 import Results from './pages/Results'
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'https://solar-estimation-server.vercel.app'
 axios.defaults.withCredentials = true
 function App() {
  
