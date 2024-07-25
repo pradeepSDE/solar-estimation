@@ -1,8 +1,29 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Capture from "../components/CaptureImg";
-
+import axios from "axios";
 const Home = () => {
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+
+    const fileInput = document.getElementById('profile-pic');
+    const formData = new FormData();
+    
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      console.log(file)
+      formData.append('image', file);
+
+      axios.post('/detect', formData, (res) => {
+        console.log(res.data);
+      }).then((res)=>{
+        console.log(res.data);
+      })
+    }
+    console.log("Upload image");
+  }
   return (
     <div className=" bg-cover   bg-no-repeat bg-center  h-[100vh]">
       <div className="flex-col justify-center">
@@ -19,7 +40,7 @@ const Home = () => {
       <div className="flex justify-center mt-10    items-center">
         <div className="border-2 border-orange-300 flex-col justify-center items-center p-16 backdrop-blur-sm rounded-3xl">
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleUpload}
             className="flex pt-4 flex-col items-center justify-center my-auto space-y-4"
             action="/"
           >
