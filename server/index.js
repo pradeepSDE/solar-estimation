@@ -8,7 +8,7 @@ const multer = require('multer');
 const app = express();
 const port = 3000;
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'solar-estimation-frontend.vercel.app',
     credentials: true,
     methods: ['POST', 'GET'],
     allowedHeaders: ["Content-Type", "Authorization"],
