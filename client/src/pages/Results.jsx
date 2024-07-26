@@ -4,7 +4,7 @@ const Results = () => {
   return (
     <div>
         <h1>Area available  </h1>
-      <img src="../../output/result.png" alt="img" />
+      <img src="/tmp/result.png" alt="img" />
     </div>
   )
 }
