@@ -36,7 +36,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: 'https://solar-estimation-frontend.vercel.app',
+    origin: true,
     credentials: true,
     methods: ['POST', 'GET'],
     allowedHeaders: ["Content-Type", "Authorization"],
