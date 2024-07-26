@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/images/result.png', (req, res) => {
-    const filePath = path.join('/tmp', req.params.filename);
+    const filePath = path.join('/tmp', 'result.png');
     res.sendFile(filePath);
   });
 

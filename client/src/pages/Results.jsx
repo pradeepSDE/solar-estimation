@@ -6,7 +6,10 @@ const Results = () => {
 
   useEffect(() => {
     // Fetch the result image URL from your server endpoint
-      setImageUrl(`https://solar-estimation-server.vercel.app/images/result.png`);
+      // setImageUrl(`https://solar-estimation-server.vercel.app/images/result.png`);
+      axios.get('/images/result.png').then((response) => { setImageUrl(response.data);
+        console.log(response);
+       });
    
   }, []);
 
