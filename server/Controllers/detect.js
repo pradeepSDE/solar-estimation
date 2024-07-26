@@ -71,7 +71,7 @@ const detect = async (req, res) => {
     .toBuffer();
 
   // Save the result
-  const outputPath = path.join('/tmp', 'result.png');
+  const outputPath = path.join("/tmp", "result.png");
   fs.writeFileSync(outputPath, image);
 
   res.json({ message: "File received and processed", resultImage: outputPath });
@@ -150,7 +150,7 @@ const captureController = async (req, res) => {
     .toBuffer();
 
   // Save the result
-  const outputPath = path.join('/tmp', 'result.png');
+  const outputPath = path.join("/tmp", "result.png");
   fs.writeFileSync(outputPath, image);
 
   res.json({ message: "File received and processed", resultImage: outputPath });

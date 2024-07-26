@@ -1,28 +1,37 @@
 import axios from "axios";
 import React, { useState, useRef, useCallback } from "react";
+import toast from "react-hot-toast";
+import { Oval } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import Webcam from "react-webcam";
 
-const videoConstraints = {
-  width: 400,
-  height: 400,
-  facingMode: "user",
-};
-
 const CaptureImg = () => {
+  const [cam, setCam] = useState(false);
   const [picture, setPicture] = useState("");
   const webcamRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+
+  const videoConstraints = {
+    width: 400,
+    height: 400,
+    facingMode: cam ? { exact: "environment" } : "user",
+  };
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setPicture(imageSrc);
   }, [webcamRef]);
 
+  const reverseCam = () => {
+    setCam((prev) => !prev);
+  };
+
   const submitPicture = () => {
-    // Add your submit logic here
-    console.log("Picture submitted:", picture);
+    setLoading(true);
     axios.post("/capture", { image: picture }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
+      setLoading(false);
+      toast.success(res.data.message);
     });
   };
 
@@ -62,7 +71,21 @@ const CaptureImg = () => {
               onClick={submitPicture}
               className="btn btn-success bg-green-500 m-2 hover:bg-green-700 text-white font-bold mt-2  py-2 px-4 rounded"
             >
-              Submit
+              <div className="flex justify-center items-center w-full">
+                {loading ? (
+                  <Oval
+                    visible={true}
+                    height="25"
+                    width="52"
+                    color="#ffff"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                ) : (
+                  "Submit"
+                )}
+              </div>
             </button>
           </>
         ) : (
@@ -77,10 +100,14 @@ const CaptureImg = () => {
           </button>
         )}
       </div>
-      {/* <div className="flex justify-center">
-
-        <Link to={'/'}  className=' mt-5 hover:bg-green-700 px-5 py-3 bg-green-500 text-white text-lg rounded-lg font-semibold  '>Back to home </Link>
-      </div> */}
+      <div className="flex justify-center">
+        <button
+          onClick={reverseCam}
+          className=" mt-5 hover:bg-green-700 px-5 py-3 bg-green-500 text-white text-lg rounded-lg font-semibold  "
+        >
+          Reverse Camera{" "}
+        </button>
+      </div>
     </div>
   );
 };

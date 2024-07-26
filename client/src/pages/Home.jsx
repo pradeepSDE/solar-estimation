@@ -2,39 +2,42 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Capture from "../components/CaptureImg";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import {InfinitySpin, Oval} from "react-loader-spinner";
 const Home = () => {
 
+  const [loading , setLoading] = useState(false)
   const handleUpload = (e) => {
     e.preventDefault();
-    console.log(e.target);
-
-    const fileInput = document.getElementById('profile-pic');
+    const fileInput = document.getElementById("profile-pic");
     const formData = new FormData();
-    
     if (fileInput.files.length > 0) {
+      setLoading(true)
       const file = fileInput.files[0];
-      console.log(file)
-      formData.append('image', file);
-
-      axios.post('/detect', formData, (res) => {
-        console.log(res.data);
-      }).then((res)=>{
-        console.log(res.data);
-      })
+      formData.append("image", file);
+      
+      axios.post("/detect", formData, (res) => {
+      
+        })
+        .then((res) => {
+          // console.log(res.data);
+          setLoading(false)
+          toast.success(res.data.message);
+        });
     }
-    console.log("Upload image");
-  }
+    // console.log("Upload image");
+  };
   return (
     <div className=" bg-cover   bg-no-repeat bg-center  h-[100vh]">
       <div className="flex-col justify-center">
-
-      <h1 className="text-5xl flex  justify-center m-5 p-2 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-300">
-        Rooftop Solar Energy Potential Estimator
-      </h1>
-      <h2 className="text-3xl  flex  justify-center m-5 p-1 italic ">
-        {" "}
-        Leverage Satellite Data and AI for Accurate Solar Power Projections
-      </h2>
+        <h1 className="text-5xl flex  justify-center m-5 p-2 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-300">
+          Rooftop Solar Energy Potential Estimator
+        </h1>
+        <h2 className="text-3xl  flex  justify-center m-5 p-1 italic ">
+          {" "}
+          Leverage Satellite Data and AI for Accurate Solar Power Projections
+        </h2>
       </div>
 
       <div className="flex justify-center mt-10    items-center">
@@ -71,9 +74,23 @@ const Home = () => {
 
             <button
               type="submit"
-              className="bg-orange-700 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded-md shadow-md"
+              className="bg-orange-700  hover:bg-orange-800 text-white font-bold py-2 px-4 rounded-md shadow-md flex justify-center items-center"
             >
-              Upload
+              <div className="flex justify-center items-center w-full">
+
+              {loading ? 
+             <Oval
+             visible={true}
+             height="25"
+             width="52"
+             color="#ffff"
+             ariaLabel="oval-loading"
+             wrapperStyle={{}}
+             wrapperClass=""
+             />
+              :
+                "Upload"}
+              </div>
             </button>
           </form>
           <hr className="mt-2" />
