@@ -11,16 +11,12 @@ const Results = () => {
 
         axios.get('/images/result.png').then((response) => { 
           
-          const blob =  response.blob();
-          console.log(blob)
-          const imageUrl = URL.createObjectURL(blob);
-          console.log(imageUrl)
-          setImageUrl(imageUrl);
+      
 
           
           
-          // setImageUrl(response.data);
-          // console.log(response);
+          setImageUrl(response.data);
+          console.log(response);
         });
       
    
