@@ -7,9 +7,22 @@ const Results = () => {
   useEffect(() => {
     // Fetch the result image URL from your server endpoint
       // setImageUrl(`https://solar-estimation-server.vercel.app/images/result.png`);
-      axios.get('/images/result.png').then((response) => { setImageUrl(response.data);
-        console.log(response);
-       });
+     
+
+        axios.get('/images/result.png').then((response) => { 
+          
+          const blob =  response.blob();
+          console.log(blob)
+          const imageUrl = URL.createObjectURL(blob);
+          console.log(imageUrl)
+          setImageUrl(imageUrl);
+
+          
+          
+          // setImageUrl(response.data);
+          // console.log(response);
+        });
+      
    
   }, []);
 
