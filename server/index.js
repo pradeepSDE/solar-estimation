@@ -67,6 +67,12 @@ const upload = multer({ storage: storage });
 app.get('/', (req, res) => {
     res.send('Welcome to the Solar Estimation API!');
 });
+
+app.get('/images/result.png', (req, res) => {
+    const filePath = path.join('/tmp', req.params.filename);
+    res.sendFile(filePath);
+  });
+
 app.post('/detect', upload.single('image'), detect);
 app.post('/capture', captureController);
 
