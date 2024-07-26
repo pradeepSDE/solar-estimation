@@ -61,7 +61,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+app.get('/', (req, res) => {
+    res.send('Welcome to the Solar Estimation API!');
+});
 app.post('/detect', upload.single('image'), detect);
 app.post('/capture', captureController);
 
