@@ -1,6 +1,7 @@
 const fs = require("fs");
 const sharp = require("sharp");
 const axios = require("axios");
+const path = require("path");
 
 const detect = async (req, res) => {
   if (!req.file) {
