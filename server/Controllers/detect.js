@@ -70,7 +70,7 @@ const detect = async (req, res) => {
     .toBuffer();
 
   // Save the result
-  const outputPath = "D:\\react\\project\\client\\output\\result.png";
+  const outputPath = path.join('/tmp', 'result.png');
   fs.writeFileSync(outputPath, image);
 
   res.json({ message: "File received and processed", resultImage: outputPath });
