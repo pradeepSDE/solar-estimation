@@ -36,7 +36,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: true,
+    origin: 'https://solar-estimation-frontend.vercel.app',
     credentials: true,
     methods: ['POST', 'GET'],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -69,6 +69,14 @@ app.get('/', (req, res) => {
 });
 app.post('/detect', upload.single('image'), detect);
 app.post('/capture', captureController);
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://solar-estimation-frontend.vercel.app");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
